@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import Notiflix from 'notiflix';
 import { Formik, Field, ErrorMessage } from 'formik';
 import {
   StyledForm,
@@ -18,8 +19,8 @@ const numbersSchema = Yup.object().shape({
   filter: '',
   name: Yup.string().min(2, 'Too Short!').required('Required'),
   number: Yup.string()
-  .matches(/^\d+$/, 'Please enter a valid number!')
-  .required('Required'),
+    .matches(/^\d+$/, 'Please enter a valid number!')
+    .required('Required'),
 });
 export class App extends Component {
   state = {
@@ -30,35 +31,47 @@ export class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-   
   };
   addNumber = contact => {
-    const existingContact = this.state.contacts.find(
-      ContactInContacts =>
-        ContactInContacts.name.toLocaleLowerCase() ===
-        contact.name.toLocaleLowerCase()
+    const contactWithSameNumber = this.state.contacts.find(
+      ContactInContacts => ContactInContacts.number === contact.number
     );
-    existingContact
-      ? alert(`Контакт з ім'ям ${contact.name} вже існує!`)
-      : this.setState(prevState => ({
-          contacts: [...prevState.contacts, contact],
-        }));
+    
+    const contactWithSameName = this.state.contacts.find(
+      ContactInContacts => ContactInContacts.name.toLowerCase() === contact.name.toLowerCase()
+    );
+    
+    if (contactWithSameName && contactWithSameNumber) {
+      Notiflix.Notify.failure(
+        `A contact named ${contact.name} with the number ${contact.number} already exists!`
+      );
+    } else if (contactWithSameName) {
+      Notiflix.Notify.failure(`A contact named ${contact.name} already exists!`);
+    } else if (contactWithSameNumber) {
+      Notiflix.Notify.failure(`A contact with the number ${contact.number} already exists!`);
+    } else {
+      this.setState(prevState => ({
+        contacts: [...prevState.contacts, contact],
+      }));
+      Notiflix.Notify.success(`Contact ${contact.name} added successfully!`);
+    }
+    
   };
   filterContacts = event => {
     this.setState({ filter: event.target.value });
   };
-  render() {const { filter, contacts } = this.state;
-  const filteredContacts = contacts.filter(
-    contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase()) ||
-      contact.number.includes(filter)
-  );
+  render() {
+    const { filter, contacts } = this.state;
+    const filteredContacts = contacts.filter(
+      contact =>
+        contact.name.toLowerCase().includes(filter.toLowerCase()) ||
+        contact.number.includes(filter)
+    );
     return (
       <div>
-          <p>Contacts</p>
+        <p>Contacts</p>
         <Formik
           initialValues={{
-           
             name: '',
             number: '',
           }}
@@ -93,9 +106,9 @@ export class App extends Component {
           <Input type="text" onChange={this.filterContacts} />
         </label>
         <ContactListContainer>
-        <ContactListHeading>Contacts</ContactListHeading>
+          <ContactListHeading>Contacts</ContactListHeading>
           <ContactList>
-          {filteredContacts.map(contact => (
+            {filteredContacts.map(contact => (
               <ContactItem key={contact.id}>
                 {contact.name}: {contact.number}
               </ContactItem>
