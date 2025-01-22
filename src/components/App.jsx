@@ -40,26 +40,30 @@ export class App extends Component {
     const contactWithSameNumber = this.state.contacts.find(
       ContactInContacts => ContactInContacts.number === contact.number
     );
-    
+
     const contactWithSameName = this.state.contacts.find(
-      ContactInContacts => ContactInContacts.name.toLowerCase() === contact.name.toLowerCase()
+      ContactInContacts =>
+        ContactInContacts.name.toLowerCase() === contact.name.toLowerCase()
     );
-    
+
     if (contactWithSameName && contactWithSameNumber) {
       Notiflix.Notify.failure(
         `A contact named ${contact.name} with the number ${contact.number} already exists!`
       );
     } else if (contactWithSameName) {
-      Notiflix.Notify.failure(`A contact named ${contact.name} already exists!`);
+      Notiflix.Notify.failure(
+        `A contact named ${contact.name} already exists!`
+      );
     } else if (contactWithSameNumber) {
-      Notiflix.Notify.failure(`A contact with the number ${contact.number} already exists!`);
+      Notiflix.Notify.failure(
+        `A contact with the number ${contact.number} already exists!`
+      );
     } else {
       this.setState(prevState => ({
         contacts: [...prevState.contacts, contact],
       }));
       Notiflix.Notify.success(`Contact ${contact.name} added successfully!`);
     }
-    
   };
   filterContacts = event => {
     this.setState({ filter: event.target.value });
@@ -115,20 +119,20 @@ export class App extends Component {
           <SearchInput type="text" onChange={this.filterContacts} />
         </SearchLabel>
         <ContactListContainer>
-          <ContactListHeading>Contacts</ContactListHeading>
+          <ContactListHeading>Contacts:</ContactListHeading>
           <ContactList>
             {filteredContacts.map(contact => (
               <DivWrapper key={contact.id}>
-              <ContactItem>
-                {contact.name}: {contact.number}
-              </ContactItem>
-              <DeleteButton
-                type="button"
-                onClick={() => this.handleDelete(contact.id)}
-              >
-                Delete
-                </DeleteButton>
-                </DivWrapper>
+                <ContactItem>
+                  {contact.name}: {contact.number}
+                  <DeleteButton
+                    type="button"
+                    onClick={() => this.handleDelete(contact.id)}
+                  >
+                    Delete
+                  </DeleteButton>
+                </ContactItem>
+              </DivWrapper>
             ))}
           </ContactList>
         </ContactListContainer>
