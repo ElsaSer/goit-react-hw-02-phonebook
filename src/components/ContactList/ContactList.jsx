@@ -1,10 +1,10 @@
-import { ContactItem } from './ContactItem';
+import { ContactItem } from '../ContactItem/Contact.styled';
 import {
   ContactListContainer,
   ContactListHeading,
   ContactList,
-} from '../App.Styled';
-export const ContactList = ({ contacts, onDelete }) => (
+} from './ContactList.styled.jsx';
+export const ContactListComponent = ({ contacts, onDelete }) => (
   <ContactListContainer>
     <ContactListHeading>Contacts:</ContactListHeading>
     <ContactList>
