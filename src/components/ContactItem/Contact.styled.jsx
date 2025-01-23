@@ -36,7 +36,9 @@ export const ContactItem = styled.li`
   display: flex;
   padding: 5px;
   align-items: center;
-  justify-content: center;
+ justify-content: space-between;
+  padding: 15px;
+  width: 400px;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 6px;

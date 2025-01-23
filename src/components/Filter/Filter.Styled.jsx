@@ -7,7 +7,7 @@ export const SearchLabel = styled.label`
   font-weight: 500;
   color: #333;
 `;
-export const SearchInput = styled.Input`
+export const SearchInput = styled.input`
   width: 200px;
   padding: 10px;
   margin-top: 8px;
