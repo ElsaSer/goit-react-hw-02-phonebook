@@ -16,7 +16,7 @@
     "postcss": "^8.5.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "react-scripts": "^3.0.1",
+    "react-scripts": "^5.0.1",
     "resolve-url-loader": "^5.0.0",
     "styled-components": "^6.1.14",
     "svgo": "^3.3.2",
@@ -48,5 +48,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^9.18.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-jest": "^28.11.0"
   }
 }
