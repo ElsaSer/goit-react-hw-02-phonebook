@@ -13,4 +13,4 @@ export const ContactItem = ({ id, name, number, onDelete }) => (
       </DeleteButton>
     </StyledContactItem>
   </DivWrapper>
-);
+); 
