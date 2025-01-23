@@ -5,14 +5,16 @@ import {
   Input,
   SubmitButton,
   ErrorText,
-} from './ContactForm.Styled.jsx';
+} from './ContactFormStyled.jsx';
 import * as Yup from 'yup';
+
 const numbersSchema = Yup.object().shape({
   name: Yup.string().min(2, 'Too Short!').required('Required'),
   number: Yup.string()
     .matches(/^\d+$/, 'Please enter a valid number!')
     .required('Required'),
 });
+
 export const ContactForm = ({ onSubmit }) => (
   <Formik
     initialValues={{ name: '', number: '' }}
