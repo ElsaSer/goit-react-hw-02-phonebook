@@ -3,7 +3,7 @@ import Notiflix from 'notiflix';
 import { nanoid } from 'nanoid';
 import { ContactForm } from './ContactForm/ContactForm';
 import { Filter } from './Filter/Filter';
-import { ContactListComponent } from './ContactList/ContactList';
+import { ContactList } from './ContactList/ContactList';
 
 export class App extends Component {
   state = {
@@ -31,10 +31,8 @@ export class App extends Component {
       );
     } else if (contactWithSameName) {
       Notiflix.Notify.failure(`A contact named ${name} already exists!`);
-    }
-      Notiflix.Notify.failure(`Contact with name ${name} already exists!`);
     } else if (contactWithSameNumber) {
-      Notiflix.Notify.failure(`Contact with number ${number} already exists!`);
+      Notiflix.Notify.failure(`A contact with the number ${number} already exists!`);
     } else {
       const newContact = { id: nanoid(), name, number };
       this.setState(prevState => ({
@@ -66,11 +64,11 @@ export class App extends Component {
       <div>
         <ContactForm onSubmit={this.addNumber} />
         <Filter value={filter} onChange={this.filterContacts} />
-        <ContactListComponent
+        <ContactList
           contacts={filteredContacts}
           onDelete={this.handleDelete}
         />
       </div>
     );
   }
-}
+} // Ensure this closing brace is present
