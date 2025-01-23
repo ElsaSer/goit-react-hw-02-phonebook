@@ -3,7 +3,8 @@ import {
   ContactListContainer,
   ContactListHeading,
   ContactList,
-} from './ContactList.styled.jsx';
+} from './ContactListStyled.jsx';
+
 export const ContactListComponent = ({ contacts, onDelete }) => (
   <ContactListContainer>
     <ContactListHeading>Contacts:</ContactListHeading>
