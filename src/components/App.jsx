@@ -3,7 +3,7 @@ import Notiflix from 'notiflix';
 import { nanoid } from 'nanoid';
 import { ContactForm } from './ContactForm/ContactForm';
 import { Filter } from './Filter/Filter';
-import { ContactList } from './ContactList/ContactList';
+import { ContactListComponent } from './ContactList/ContactList';
 
 export class App extends Component {
   state = {
@@ -27,18 +27,18 @@ export class App extends Component {
 
     if (contactWithSameName && contactWithSameNumber) {
       Notiflix.Notify.failure(
-        `A contact named ${name} with the number ${number} already exists!`
+        `Контакт з ім'ям ${name} та з номером ${number} вже існує!`
       );
     } else if (contactWithSameName) {
-      Notiflix.Notify.failure(`A contact named ${name} already exists!`);
+      Notiflix.Notify.failure(`Контакт з ім'ям ${name} вже існує!`);
     } else if (contactWithSameNumber) {
-      Notiflix.Notify.failure(`A contact with the number ${number} already exists!`);
+      Notiflix.Notify.failure(`Контакт з номером ${number} вже існує!`);
     } else {
       const newContact = { id: nanoid(), name, number };
       this.setState(prevState => ({
         contacts: [...prevState.contacts, newContact],
       }));
-      Notiflix.Notify.success(`Contact ${name} added successfully!`);
+      Notiflix.Notify.success(`Контакт ${name} успішно додано!`);
     }
   };
 
@@ -61,14 +61,14 @@ export class App extends Component {
     );
 
     return (
-      <div>
+      <div style={{ marginBottom: '50px' }}>
         <ContactForm onSubmit={this.addNumber} />
         <Filter value={filter} onChange={this.filterContacts} />
-        <ContactList
+        <ContactListComponent
           contacts={filteredContacts}
           onDelete={this.handleDelete}
         />
       </div>
     );
   }
-} 
+}
